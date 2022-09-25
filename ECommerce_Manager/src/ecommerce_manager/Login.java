@@ -105,8 +105,9 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        try{
         Login("vendedores", "Nome", false);
-        Login("admins", "Nome", true);
+        Login("admins", "Nome", true);}catch (Exception e){}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void Login(String table,String user, boolean adm){
@@ -121,16 +122,18 @@ public class Login extends javax.swing.JFrame {
         rs.next();
        
         System.out.println();
-        String SenhaBD = rs.getString("senha");
-        int ID = rs.getInt("IDVendedor");
+        String SenhaBD = rs.getString("Senha");
+        
         System.out.println(SenhaBD);
         String Senha  = jTextField2.getText();
+            System.out.println(SenhaBD);
         if (Senha.equals(SenhaBD)){
             System.out.println("entrei na MATRIX");
             dispose();
             if (adm){
                 new UserPanel().setVisible(true);
-            }else {
+            }else{
+                int ID = rs.getInt("IDVendedor");
                 Vendas Vendas = new Vendas();
                 Vendas.setVisible(true);
                 Vendas.IDVendedor = ID;
@@ -160,7 +163,7 @@ public class Login extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

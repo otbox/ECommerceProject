@@ -53,6 +53,7 @@ public class Vendas extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -71,6 +72,7 @@ public class Vendas extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         jFrame1.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jFrame1.setSize(new java.awt.Dimension(572, 377));
@@ -202,6 +204,9 @@ public class Vendas extends javax.swing.JFrame {
     jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
     jLabel7.setText("Desconto");
 
+    jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+    jLabel10.setText("Tipo de Venda");
+
     javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
     jPanel3.setLayout(jPanel3Layout);
     jPanel3Layout.setHorizontalGroup(
@@ -213,8 +218,9 @@ public class Vendas extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addComponent(jLabel4)
                 .addComponent(jLabel5)
-                .addComponent(jLabel7))
-            .addContainerGap(71, Short.MAX_VALUE))
+                .addComponent(jLabel7)
+                .addComponent(jLabel10))
+            .addContainerGap(33, Short.MAX_VALUE))
     );
     jPanel3Layout.setVerticalGroup(
         jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +235,9 @@ public class Vendas extends javax.swing.JFrame {
             .addComponent(jLabel5)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(jLabel7)
-            .addContainerGap(47, Short.MAX_VALUE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jLabel10)
+            .addContainerGap(19, Short.MAX_VALUE))
     );
 
     jPanel1.setBackground(new java.awt.Color(0, 0, 0));
@@ -390,14 +398,16 @@ public class Vendas extends javax.swing.JFrame {
         }
     });
 
+    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Crédito", "Débito", "Pix" }));
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGap(18, 18, 18)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -410,7 +420,8 @@ public class Vendas extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton2))
                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
@@ -438,7 +449,9 @@ public class Vendas extends javax.swing.JFrame {
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, 0)))
             .addContainerGap())
     );
 
@@ -609,41 +622,70 @@ public class Vendas extends javax.swing.JFrame {
         return Return;
     }
     
-    public int IDVendedor = 0;
+    private int SearchProduto(String descricao){
+        int Return = 0;
+            try{
+                String sql;
+                ConexaoMYSQL.ConectarMYSQL();                    
+                sql = "select IDProduto from Produtos where descricao = '"+ descricao +"'"; 
+                System.out.println(sql);
+                Statement stm = con.createStatement();
+                ResultSet rs = stm.executeQuery(sql); 
+                rs.next();
+                Return = rs.getInt("IDProduto");
+                System.out.println("RETUEN = "+ Return);
+             return Return;
+            }catch(SQLException e){UI.Erro(e.toString());}
+        return Return;
+    }
+    
+    public int IDVendedor = 2;
     
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         System.out.println(IDVendedor);
-//        DateFormat data = new SimpleDateFormat("yyyy-MM-dd");
-//        Date data1 = new Date();
-//        data.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
-//        String dataf = data.format(data1);
-//        try{
-//        int NProdutos;
-//        int IDCliente = Integer.parseInt(jTextField2.getText());
-//        int IDProduto = Integer.parseInt(jTextField3.getText());
-//        double total = Double.parseDouble(jLabel8.getText());
-//        DefaultTableModel model1=(DefaultTableModel) jTable2.getModel();
-//        NProdutos = model1.getRowCount();
-//        int l;
-//        String ID;
-//        l = jTable2.getSelectedRow();
-//        ID = (String) jTable2.getValueAt(l, 0);
-//        jTextField2.setText(ID);
-//        String sql = "INSERT INTO `vendas`( `IDCliente`, `Totalpreco`, `DataCompra`) "
-//                    + "VALUES ('"+IDCliente +"','"+total+"','"+dataf+"')";
-//        ConexaoMYSQL.ConectarMYSQL();
-//        Statement stm = con.createStatement();
-//        ResultSet rs = stm.executeQuery(sql); 
-//        
-////        for (int i = 0; i <= NProdutos; i++){
-////            sql = "INSERT INTO `detalhesvenda`(`IDVenda`, `IDVendedor`, `IDProduto`, `Preco`, `Qnt`, `Tipovenda`) "
-////                    + "VALUES ('"++"','"++"','"++"','"++"','"++"','"++"')"
-////        }      
-////        rs.getString("Descricao");
-//        }catch (SQLException e){
-//         //  UI.Erro(e);
-//        }
+        DateFormat data = new SimpleDateFormat("yyyy-MM-dd");
+        Date data1 = new Date();
+        data.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
+        String dataf = data.format(data1);
+        try{
+        int NProdutos;
+        int IDCliente = Integer.parseInt(jTextField2.getText());
+        int IDProduto = Integer.parseInt(jTextField3.getText());
+        double total = Double.parseDouble(jLabel8.getText());
+        DefaultTableModel model1=(DefaultTableModel) jTable2.getModel();
+        NProdutos = model1.getRowCount();
+    
+        String sql = "INSERT INTO `vendas`( `IDCliente`, `Totalpreco`, `DataCompra`) "
+                    + "VALUES ('"+IDCliente +"','"+total+"','"+dataf+"')";
+        ConexaoMYSQL.ConectarMYSQL();
+        
+        Statement stm = con.prepareStatement(sql);
+            stm.execute(sql);
+        sql = "Select IDVenda from vendas where IDCliente = " + IDCliente + " ORDER by IDVenda DESC";
+        Statement stm1 = con.createStatement();
+        ResultSet rs = stm1.executeQuery(sql); 
+        rs.next();
+        String TipoVenda = (String) jComboBox1.getSelectedItem();
+        
+        String IDVenda = rs.getString("IDVenda");
+ 
+        for (int i = 0; i < NProdutos; i++){
+            int IDProduto1 = SearchProduto((String) jTable2.getValueAt(i, 1));
+            int Qnt = Integer.parseInt((String)jTable2.getValueAt(i, 0));
+            System.out.println(Qnt);
+            Double Preco = Double.parseDouble((String)jTable2.getValueAt(i, 3));
+            Double Desconto = Double.parseDouble((String)jTable2.getValueAt(i, 2));
+            sql = "INSERT INTO `detalhesvenda`(`IDVenda`, `IDVendedor`, `IDProduto`, `Preco`, `Qnt`, `Tipovenda`, `desconto`) "
+                    + "VALUES ('"+IDVenda+"','"+IDVendedor+"','"+IDProduto1+"','"+Preco+"','"+Qnt+"','"+ TipoVenda +"',"+Desconto+")";
+            System.out.println(sql);
+            stm = con.prepareStatement(sql);
+            stm.execute(sql);
+        }      
+        
+        }catch (SQLException e){
+           UI.Erro(e.toString());
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
     
     private void limpar(){
@@ -714,7 +756,9 @@ public class Vendas extends javax.swing.JFrame {
         String ID;
         l = jTable1.getSelectedRow();
         ID = (String) jTable1.getValueAt(l, 0);
+        if(Tabelao.equals("cliente")){
         jTextField2.setText(ID);
+        }else{jTextField3.setText(ID);}
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -783,8 +827,10 @@ public class Vendas extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

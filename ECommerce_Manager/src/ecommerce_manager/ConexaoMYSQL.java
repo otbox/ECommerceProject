@@ -12,7 +12,7 @@ public class ConexaoMYSQL {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");  
             con = DriverManager.getConnection("jdbc:mysql://localhost/ECommerce1","root","");
-            System.out.println("Conectado");
+            //System.out.println("Conectado");
         } catch (ClassNotFoundException ex){
             System.out.println(ex);
         }catch (SQLException e){
