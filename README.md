@@ -8,3 +8,4 @@ Sendo um sistema básico de comercio com o terminal de vendas, para seus funcion
 Tendo o sistema de entrada de produtos, vendedores, clientes, transportadora.
 Podendo adiconar remover e atualizar apenas como administrador. 
 
+![image](https://github.com/otbox/ECommerceProject/assets/74389165/cac49186-80d6-475a-82e1-7fa3a6778324)
