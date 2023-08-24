@@ -17,3 +17,5 @@ O sistema de pesquisa é acessado apertando o ... da tela de venda
 Sistema de pesquisa
 ![image](https://github.com/otbox/ECommerceProject/assets/74389165/54e79683-e773-465e-a4d4-c3b72e7133c8)
 
+A telas de adição de produtos \n
+![image](https://github.com/otbox/ECommerceProject/assets/74389165/52b70abd-3b90-4102-bd26-70376aa7f5ff)
