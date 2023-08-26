@@ -1,5 +1,5 @@
 # ECommerceProject
- A EcommerceProject with java,mysql and a web integration
+ A EcommerceProject with java,mysql
 
 ![image](https://github.com/otbox/ECommerceProject/assets/74389165/7e6101b5-edcd-4071-95d7-62a198af65d2)
 
